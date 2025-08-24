@@ -15,18 +15,17 @@ import hashlib
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# --- تنظیم مسیرها ---
+# CSVFILES
 os.makedirs("results", exist_ok=True)
 DELIVERIES_CSV = "deliveries_table.csv"
 DRIVERS_CSV = "drivers_table.csv"
 
-# --- بارگذاری ---
-# --- بارگذاری ---
+# uploads
 
 df = pd.read_csv(r"C:\Users\afrou\OneDrive\Desktop\tableau\uber-eats-driver-analytics\data\deliveries_table.csv", parse_dates=["pickup_datetime","dropoff_datetime"], dayfirst=False)
 drivers = pd.read_csv(r"C:\Users\afrou\OneDrive\Desktop\tableau\uber-eats-driver-analytics\data\drivers_table.csv", parse_dates=["join_date"], dayfirst=False)
 
-# --- KPIها ---
+# --- KPI ---
 kpis = {}
 kpis["gmv_order_value"] = df["order_value"].sum()
 kpis["total_fare"] = df["fare"].sum()
@@ -93,7 +92,7 @@ cutoff = pd.to_datetime("2024-07-20")
 df["period"] = df["pickup_datetime"].apply(lambda x: "pre" if pd.notna(x) and x < cutoff else "post")
 df["arm_period"] = df["arm"] + "_" + df["period"].astype(str)
 
-# --- خروجی KPI به md ---
+# ---  KPI to md ---
 with open("results/kpis.md", "w", encoding="utf-8") as f:
     f.write("# KPI Summary\n\n")
     for k,v in kpis.items():
@@ -105,7 +104,7 @@ with open("results/kpis.md", "w", encoding="utf-8") as f:
     f.write(f"- driver_earnings_if: {driver_earnings_if:.2f}\n")
     f.write(f"- delta_total_driver_earnings: {delta_total_driver_earnings:.2f}\n")
 
-# --- نمودار ساده: platform take now vs if ---
+# --- : platform take now vs if ---
 plt.figure(figsize=(5,4))
 plt.bar(["now","if"], [platform_take_now, platform_take_if])
 plt.title("Platform take: now vs if (fee_delta=-0.05)")
