@@ -20,7 +20,7 @@ os.makedirs("results", exist_ok=True)
 DELIVERIES_CSV = "deliveries_table.csv"
 DRIVERS_CSV = "drivers_table.csv"
 
-# uploads
+# upload
 
 df = pd.read_csv(r"C:\Users\afrou\OneDrive\Desktop\tableau\uber-eats-driver-analytics\data\deliveries_table.csv", parse_dates=["pickup_datetime","dropoff_datetime"], dayfirst=False)
 drivers = pd.read_csv(r"C:\Users\afrou\OneDrive\Desktop\tableau\uber-eats-driver-analytics\data\drivers_table.csv", parse_dates=["join_date"], dayfirst=False)
